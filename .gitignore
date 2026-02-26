@@ -1,0 +1,13 @@
+.env
+.slack_monitor_state.json
+__pycache__/
+*.pyc
+prompt_template.local.md
+
+# workspace: .claudeシンボリックリンク以外をignore
+workspace/*
+!workspace/.claude
+
+# Skills: slack-toolkit以外をignore
+.claude/skills/*
+!.claude/skills/slack-toolkit/
