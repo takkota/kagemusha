@@ -27,6 +27,7 @@ def invoke_skill(
         "claude",
         "-p",
         prompt,
+        "--model", "claude-sonnet-4-6",
         "--dangerously-skip-permissions",
     ]
 
