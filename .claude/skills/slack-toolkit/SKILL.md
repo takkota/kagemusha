@@ -1,7 +1,7 @@
 ---
 name: slack-toolkit
 description: >
-  Slack基本操作のツールキット。メッセージリンク解析、メッセージ読み取り、メッセージ送信、リアクション追加の機能を提供する。
+  Slack基本操作のツールキット。メッセージリンク解析、メッセージ読み取り、メッセージ送信、ファイルアップロード、リアクション追加の機能を提供する。
 ---
 
 # Slack Toolkit
@@ -56,6 +56,23 @@ scripts/download_slack_files.sh <channel_id> <message_timestamp>
 1. `slack_read_thread` や `slack_read_channel` でメッセージを読み取った際に、画像添付の存在を示す情報があれば本スクリプトを実行する
 2. 出力されたファイルパスをReadツールで読み取り、画像の内容を解析する
 3. 解析結果をSlackへの回答に反映する
+
+## ファイルアップロード
+
+Slack MCPにはファイルアップロードツールがないため、`scripts/upload_file.sh` を使用してSlack files.uploadV2 APIを直接呼び出す。
+環境変数 `SLACK_USER_TOKEN` が必要。
+
+**使用方法:**
+
+```bash
+scripts/upload_file.sh <channel_id> <file_path> [initial_comment] [thread_ts]
+```
+
+- `channel_id`: アップロード先のチャンネルID
+- `file_path`: アップロードするファイルのパス
+- `initial_comment`: ファイルと一緒に投稿するメッセージ（省略可）
+- `thread_ts`: スレッドに投稿する場合の親メッセージのタイムスタンプ（省略可）
+- APIの詳細は [references/slack_files_upload_api.md](references/slack_files_upload_api.md) を参照
 
 ## リアクション追加
 
