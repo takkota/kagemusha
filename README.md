@@ -40,6 +40,10 @@ cp .env.example .env
 
 - Python 3.6+
 - [Claude CLI](https://github.com/anthropics/claude-code) がPATHに存在すること
+- **Claude CodeのSlack connector（`claude_ai_Slack` MCP）が有効化されていること**
+  - 本ツールはClaude Code内蔵のSlack connector（`slack_read_thread`, `slack_read_channel`, `slack_send_message`）を使用してSlackメッセージの読み書きを行います
+  - Slack connectorの有効化方法: Claude Codeの設定画面からSlack integrationを有効にしてください
+  - Slack connectorを利用できない場合は、同等の機能を持つサードパーティ製のSlack MCPサーバー（例: [slack-mcp-server](https://github.com/modelcontextprotocol/servers/tree/main/src/slack)）をインストールし、`slack_read_thread`, `slack_read_channel`, `slack_send_message` 相当のツールが利用可能な状態にする必要があります
 
 ## 起動
 
