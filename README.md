@@ -40,6 +40,8 @@ cp .env.example .env
 
 - Python 3.6+
 - [Claude CLI](https://github.com/anthropics/claude-code) がPATHに存在すること
+- **Claude CodeのSlack connector（`claude_ai_Slack` MCP）が有効化されていること**
+  - 本ツールはClaude Code内蔵のSlack connector（`slack_read_thread`, `slack_read_channel`, `slack_send_message`）を使用してSlackメッセージの読み書きを行います
 
 ## 起動
 
