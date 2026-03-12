@@ -27,7 +27,7 @@ def invoke_skill(
         "claude",
         "-p",
         prompt,
-        "--dangerously-skip-permissions",
+        "--enable-auto-mode",
     ]
 
     env = {**os.environ, "CLAUDE_CODE_DISABLE_AUTO_MEMORY": "0"}
