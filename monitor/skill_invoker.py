@@ -28,7 +28,7 @@ def invoke_skill(
         "-p",
         prompt,
         "--model", "claude-sonnet-4-6",
-        "--enable-auto-mode",
+        "--permission-mode", "auto",
     ]
 
     env = {**os.environ, "CLAUDE_CODE_DISABLE_AUTO_MEMORY": "0"}
