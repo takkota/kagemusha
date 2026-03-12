@@ -11,3 +11,5 @@ workspace/*
 # Skills: slack-toolkit以外をignore
 .claude/skills/*
 !.claude/skills/slack-toolkit/
+
+launchd.log
