@@ -40,7 +40,7 @@ monitor/
 2. `_poll_tracked_threads()` — checks threads where user was mentioned for new replies (also filtered by `SLACK_CHANNEL_IDS`)
 3. `_poll_dms()` — polls DM channels for new non-bot messages (includes self-DM support)
 
-Each relevant message triggers `invoke_skill()` which reads the prompt template, substitutes `{{channel_id}}` and `{{message_ts}}`, and runs Claude CLI with `--permission-mode auto`.
+Each relevant message triggers `invoke_skill()` which reads the prompt template, substitutes `{{channel_id}}` and `{{message_ts}}`, and runs Claude CLI with `--dangerously-skip-permissions`.
 
 ### Prompt Template
 
