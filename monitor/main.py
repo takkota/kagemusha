@@ -205,8 +205,12 @@ def _poll_tracked_threads(
 
                 sender = msg.get("user", "")
                 if sender == config.user_id and not is_self_dm:
-                    state.mark_processed(msg_ts)
-                    continue
+                    # Don't skip self-mentions — the user is explicitly
+                    # triggering kagemusha by mentioning themselves.
+                    mention_tag = f"<@{config.user_id}>"
+                    if mention_tag not in msg.get("text", ""):
+                        state.mark_processed(msg_ts)
+                        continue
 
                 if msg.get("bot_id"):
                     state.mark_processed(msg_ts)
