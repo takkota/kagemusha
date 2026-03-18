@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+SERVICE="com.kagemusha.monitor"
+
+usage() {
+    echo "Usage: kagemusha {start|stop|restart|status|log}"
+    exit 1
+}
+
+case "${1:-}" in
+    start)
+        launchctl start "$SERVICE"
+        echo "Started $SERVICE"
+        ;;
+    stop)
+        launchctl stop "$SERVICE"
+        echo "Stopped $SERVICE"
+        ;;
+    restart)
+        launchctl stop "$SERVICE"
+        sleep 1
+        # KeepAlive ensures auto-restart after stop; just confirm it's running
+        if launchctl list "$SERVICE" &>/dev/null; then
+            echo "Restarted $SERVICE"
+        else
+            launchctl start "$SERVICE"
+            echo "Restarted $SERVICE"
+        fi
+        ;;
+    status)
+        if launchctl list "$SERVICE" &>/dev/null; then
+            pid=$(launchctl list "$SERVICE" | grep '"PID"' | awk '{print $3}' | tr -d ';')
+            if [ -n "$pid" ]; then
+                echo "Running (PID: $pid)"
+            else
+                echo "Registered but not running"
+            fi
+        else
+            echo "Not registered"
+        fi
+        ;;
+    log)
+        tail -f "$(dirname "$0")/launchd.log"
+        ;;
+    *)
+        usage
+        ;;
+esac
