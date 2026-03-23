@@ -2,6 +2,7 @@
 set -euo pipefail
 
 SERVICE="com.kagemusha.monitor"
+SCRIPT_DIR="$(cd "$(dirname "$(readlink "$0" || echo "$0")")" && pwd)"
 
 usage() {
     echo "Usage: kagemusha {start|stop|restart|status|log}"
@@ -41,7 +42,7 @@ case "${1:-}" in
         fi
         ;;
     log)
-        tail -f "$(dirname "$0")/launchd.log"
+        tail -f "$SCRIPT_DIR/launchd.log"
         ;;
     *)
         usage
