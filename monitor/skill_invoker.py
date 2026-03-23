@@ -57,11 +57,18 @@ def invoke_skill(
                 _os.killpg(proc.pid, signal.SIGTERM)
             except OSError:
                 proc.kill()
-            proc.wait()
+            # Capture any partial output before reaping
+            try:
+                stdout, stderr = proc.communicate(timeout=5)
+            except subprocess.TimeoutExpired:
+                proc.kill()
+                stdout, stderr = proc.communicate()
             logger.error(
-                "Skill timed out after %ds for %s",
+                "Skill timed out after %ds for %s:\npartial stdout: %s\npartial stderr: %s",
                 TIMEOUT_SECONDS,
                 message_ts,
+                stdout[-2000:] if stdout else "(no stdout)",
+                stderr[-2000:] if stderr else "(no stderr)",
             )
             return False
 
